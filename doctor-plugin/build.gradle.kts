@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.osacky.doctor"
-version = "0.12.1"
+version = "0.12.1-isolated-projects"
 
 repositories {
     mavenCentral()
@@ -58,9 +58,6 @@ java {
 }
 
 mavenPublishing {
-    publishToMavenCentral()
-    signAllPublications()
-    
     pom {
         name.set("Gradle Doctor")
         description.set("The right prescription for your Gradle build.")
@@ -83,6 +80,20 @@ mavenPublishing {
             url.set("https://github.com/runningcode/gradle-doctor/")
             connection.set("scm:git:git://github.com/runningcode/gradle-doctor.git")
             developerConnection.set("scm:git:ssh://github.com/runningcode/gradle-doctor.git")
+        }
+    }
+}
+
+
+publishing {
+    repositories {
+        val repoURl = providers.environmentVariable("BANDLAB_REPO_URL")
+        if (repoURl.isPresent) {
+            maven {
+                name = "bandlabRepo"
+                url = uri(repoURl)
+                credentials(PasswordCredentials::class)
+            }
         }
     }
 }
