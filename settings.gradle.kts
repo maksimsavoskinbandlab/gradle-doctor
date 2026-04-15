@@ -9,14 +9,6 @@ pluginManagement {
 
 plugins {
   id("com.osacky.doctor")
-  id("com.gradle.develocity") version "4.3.2"
-}
-
-develocity {
-  buildScan {
-    termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
-    termsOfUseAgree = "yes"
-  }
 }
 
 doctor {
